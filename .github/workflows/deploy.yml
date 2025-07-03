@@ -40,6 +40,14 @@ jobs:
       with:
         python-version: '3.11'
     
+    - name: Check AWS credentials
+      run: |
+        if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ] || [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
+          echo "❌ AWS credentials not configured. Skipping deployment."
+          echo "Please add AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as repository secrets."
+          exit 0
+        fi
+    
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -64,11 +72,20 @@ jobs:
     - name: Deploy to Lambda
       run: |
         if aws lambda get-function --function-name mrr-v3-lambda &> /dev/null; then
+          echo "🔄 Updating existing Lambda function: mrr-v3-lambda"
           aws lambda update-function-code \
             --function-name mrr-v3-lambda \
             --zip-file fileb://lambda_function.zip
         else
-          echo "Lambda function mrr-v3-lambda does not exist. Please create it first."
+          echo "📦 Creating new Lambda function: mrr-v3-lambda"
+          # Note: You'll need to create the function manually first with proper IAM role
+          echo "Please create the Lambda function manually with:"
+          echo "aws lambda create-function \\"
+          echo "  --function-name mrr-v3-lambda \\"
+          echo "  --runtime python3.11 \\"
+          echo "  --handler lambda_function.lambda_handler \\"
+          echo "  --role arn:aws:iam::YOUR_ACCOUNT:role/lambda-execution-role \\"
+          echo "  --zip-file fileb://lambda_function.zip"
           exit 1
         fi
     
