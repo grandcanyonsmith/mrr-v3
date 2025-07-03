@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title id="pageTitle"></title>
+
+  <!-- Tailwind 3 – CDN build (JIT) -->
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          boxShadow: {
+            brand: '0 8px 28px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com/" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js + plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0/dist/chartjs-plugin-annotation.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/hero-icon-js/hero-icon-outline.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/hero-icon-js/hero-icon-solid.min.js" defer></script>
+
+  <script>
+window.courseData={
+  brandColors:{
+    background:"#FFFDF7",
+    primary:"#C28E5C",
+    text:"#362C1A",
+    textSecondary:"#8A6D3B",
+    accent:"#E5734B",
+    border:"#E8D8C3"
+  },
+  meta:{
+    courseTitle:"Charcuterie & Grazing Board Mastery",
+    reportTitle:"Charcuterie Board Online Course Market Outlook 2025"
+  },
+  demand:{
+    score:7,
+    percentile:75,
+    question:"Is it smart to launch a charcuterie board course now?",
+    answer:"Yes—interest is high and still rising.",
+    why:"• Google searches for 'charcuterie board' and related keywords are at all-time highs (458K+/mo, +300% in 5 yrs). • Over 1.2M Instagram posts and viral TikTok trends continue despite slight fad-cooling. • Consumers willingly pay $75–$150 for top courses, confirming healthy demand as it shifts from novelty to mainstream hobby."
+  },
+  testing:{
+    overview:"Turn total beginners into Instagram-worthy charcuterie and grazing board creators for any occasion.",
+    targetAudience:"Millennial and Gen-Z women (25–45) who love home entertaining and beautiful food presentation; secondary: aspiring side-hustle catering founders.",
+    format:"5 self-paced video modules (15–20 min each), PDFs/recipes, private community, weekly live Q&A, guided assignments, peer photo review.",
+    question:"Why this course instead of free Instagram/TikTok/blogs?",
+    answer:"We offer a clear, step-by-step path unifying practical ingredient, styling, safety, and creative guidance—no more sifting scattered or conflicting advice.",
+    why:"Current resources are piecemeal and confusing—learners need a full roadmap, not random tips.",
+    contentPillars:[
+      "Board artistry & layout (color, garnish, balance)",
+      "Ingredients & pairings (cheese, meat, portion, flavor)",
+      "Preparation & presentation (knife skills, safe prep, visual tricks)",
+      "Themed/seasonal/event boards & innovation"
+    ]
+  },
+  trends:{
+    googleSearchChangePct:300,
+    socialMediaGrowthPct:90,
+    macroFactor:"Pandemic-fueled DIY culture, urban entertaining, and visual foodie trends (Instagram, TikTok) drive ongoing growth as charcuterie evolves with plant-based, diet, and seasonal spins.",
+    question:"Is the trend still climbing in 2025?",
+    answer:"Yes—searches and hashtag activity remain strong, with influencer reach and new creative board formats refreshing the trend.",
+    why:"Google Trends, meetglimpse.com, and platform data all report historic highs; Instagram #charcuterie doubled since 2020 and TikTok creators grow audiences rapidly."
+  },
+  competitors:{
+    question:"Who else teaches grazing board design and charcuterie mastery?",
+    answer:"Three main competitors serve the market, but none unite styling, ingredient mastery, and ongoing peer support in one place.",
+    why:"Most are split: either technical on meat curing or quick on styling, and few offer interactive or community-driven learning.",
+    list:[
+      {
+        name:"Charcuterie Made Easy (Vision Boards Charcuterie)",
+        strengths:"Comprehensive entry-level bundle, highly visual, broad global reach.",
+        weaknesses:"Expensive for many ($149), lacks live feedback and ongoing community.",
+        priceUSD:149,
+        websiteUrl:"https://visionboardscharcuterie.com",
+        logoUrl:"https://logo.clearbit.com/visionboardscharcuterie.com"
+      },
+      {
+        name:"Charcuterie at Home (River Cottage, Learning with Experts)",
+        strengths:"Accredited expert instructor, deep on meat curing and technical skills.",
+        weaknesses:"Very technical, heavy focus on meat, pricey for casuals ($75–$220).",
+        priceUSD:150,
+        websiteUrl:"https://learningwithexperts.com",
+        logoUrl:"https://logo.clearbit.com/learningwithexperts.com"
+      },
+      {
+        name:"Bougie Boards LA – Very Bougie Charcuterie Board",
+        strengths:"Trendy, stepwise, with lots of Instagram-style appeal and fast results.",
+        weaknesses:"Covers only one board style, limited depth, regionally known, $147.",
+        priceUSD:147,
+        websiteUrl:"https://bougieboardsla.com",
+        logoUrl:"https://logo.clearbit.com/bougieboardsla.com"
+      }
+    ]
+  },
+  worries:{
+    question:"What keeps learners up at night?",
+    answer:"Board will look bad or amateur, ingredient confusion, overspending/food waste, and risk of unsafe or mismatched items.",
+    why:"Workshops find 91% lack clear prep know-how and 81% have safety/portion gaps; forums and culinary media highlight common anxiety over appearances, shopping, and guest impressions.",
+    topConcerns:[
+      "'My board will embarrass me in front of guests.'",
+      "'What ingredients should I buy, and how much of each?'",
+      "'Will I spend too much or waste expensive food?'",
+      "'How do I keep items fresh and safe?'"
+    ]
+  },
+  pricing:{
+    question:"What will the market pay?",
+    answer:"$100–$150 is comfortable for a thorough, confidence-boosting mastery course.",
+    why:"Competing bundles are $75–$150+; $100 puts us near the sweet spot for premium visual food courses and below the highest tier.",
+    targetPriceUSD:100
+  },
+  buildDecision:{
+    question:"Based on the data, should we build it?",
+    answer:"GO.",
+    why:"Strong demand, a gap for all-in-one solutions, and price-point validation justify a launch now—course buyers are seeking exactly this blend of skills and support."
+  },
+  revenueOutlook:{
+    launchTimelineDays:60,
+    likelyRevenueUSD:20000,
+    industryAverageUSD:30000,
+    scenarios:[
+      {name:"Bad",students:50,priceUSD:100,revenueUSD:5000},
+      {name:"Good",students:200,priceUSD:100,revenueUSD:20000},
+      {name:"Excellent",students:500,priceUSD:100,revenueUSD:50000}
+    ],
+    question:"What's the 12-month upside?",
+    answer:"Expect $20K gross with standard reach, up to $50K if social/influencer lift occurs.",
+    why:"Scenario outcomes hinge on audience size, social ad/SEO budget, and viral sharing—referrals and strong social proof can double or triple revenue."
+  },
+  opportunityScore:78,
+  sources:{
+    demand:{
+      searchVolumes:"meetglimpse.com",
+      searchGrowth:"Google Trends, meetglimpse.com",
+      instagramPosts:"best-hashtags.com, businessinsider.com",
+      tiktokTrends:"businessinsider.com",
+      priceBenchmarks:"visionboardscharcuterie.com, learningwithexperts.com"
+    },
+    testing:{
+      targetAudience:"businessinsider.com",
+      contentGap:"tastewise.io, honestcooking.com"
+    },
+    trends:{
+      googleSearchChangePct:"Google Trends, meetglimpse.com",
+      socialMediaGrowthPct:"best-hashtags.com, businessinsider.com",
+      macroFactor:"platterful.com, businessinsider.in"
+    },
+    competitors:{
+      charcuterieMadeEasy:"visionboardscharcuterie.com",
+      charcuterieAtHome:"learningwithexperts.com",
+      bougieBoardsLA:"bougieboardsla.com"
+    },
+    worries:{
+      workshopStats:"kers.ca.uky.edu",
+      intimidationMedia:"honestcooking.com"
+    },
+    pricing:{
+      coursePrices:"visionboardscharcuterie.com, learningwithexperts.com, coursehorse.com"
+    },
+    revenueOutlook:{
+      industryAverage:"luisazhou.com"
+    }
+  }
+};
+  </script>
+  <style>
+    :root {
+      --light-bg:         #FFFDF7;
+      --light-primary:    #C28E5C;
+      --light-text:       #362C1A;
+      --light-text2:      #8A6D3B;
+      --light-accent:     #E5734B;
+      --light-border:     #E8D8C3;
+
+      --background:       var(--light-bg);
+      --primary:          var(--light-primary);
+      --text-strong:      var(--light-text);
+      --text-soft:        var(--light-text2);
+      --accent:           var(--light-accent);
+      --border:           var(--light-border);
+    }
+    html { font-family: 'Inter', system-ui, sans-serif; background: var(--background); color: var(--text-strong);}
+    body { min-height: 100vh;}
+    ::selection { background: var(--accent); color: #fff;}
+    ::-webkit-scrollbar { width: 10px; height: 10px;}
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px;}
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s, transform .6s;}
+    .reveal.visible { opacity: 1; transform: none;}
+    @media (min-width:1024px) {thead.table-header-sticky { position: sticky; top: 0; backdrop-filter: blur(8px);}}
+    sup.source { font-size: 0.7em; color: var(--accent); margin-left: .2em; cursor:pointer; }
+    .chip {  background:var(--border); color:var(--text-strong); padding:.16em .9em; border-radius:99px;}
+  </style>
+</head>
+<body class="lg:grid lg:grid-cols-[260px_minmax(0,1fr)] antialiased">
+
+  <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-[var(--primary)] text-white rounded px-3 py-1 z-50">
+    Skip to content
+  </a>
+  <aside id="toc"
+    class="hidden lg:block sticky top-0 h-screen overflow-y-auto border-r 
+           border-[var(--border)] bg-[var(--background)] p-6 z-30"
+    aria-label="Table of contents">
+    <header class="flex justify-between items-center mb-6">
+      <h2 class="uppercase tracking-wide font-semibold text-xs text-[var(--text-soft)]">On this page</h2>
+    </header>
+    <nav id="tocLinks" class="space-y-2 leading-6 text-sm"></nav>
+  </aside>
+
+  <main id="content" class="px-4 sm:px-6 py-14">
+    <header class="relative rounded-xl mb-8 reveal visible overflow-hidden bg-gradient-to-br from-[var(--primary)] to-[var(--primary)]/70 text-white shadow-brand">
+      <div class="px-6 py-14 sm:py-20 text-center">
+        <h1 id="courseTitle" class="text-4xl sm:text-5xl font-extrabold"></h1>
+        <p id="reportSubtitle" class="mt-4 text-lg/relaxed text-white/90"></p>
+      </div>
+      <span id="opportunityScore"
+        class="absolute top-4 right-4 sm:right-8 bg-black/10 
+               backdrop-blur px-4 py-1 rounded-full text-sm font-semibold">
+      </span>
+    </header>
+    <section id="kpiSummary" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-sm mb-10 
+             bg-[var(--background)] shadow-brand ring-1 ring-black/5 rounded-xl p-5 reveal"></section>
+
+    <button id="tocToggle"
+      class="lg:hidden fixed bottom-6 right-6 z-[60] bg-[var(--primary)] text-white p-3 
+             rounded-full shadow-brand focus:ring-4 ring-[var(--primary)]/50"
+      aria-controls="toc" aria-expanded="false">
+      <hero-icon-outline name="bars-3" class="w-6 h-6"></hero-icon-outline>
+    </button>
+
+    <template id="sectionTemplate">
+      <section class="reveal mb-14 rounded-xl ring-1 ring-black/5 shadow-brand 
+               bg-[var(--background)] lg:grid lg:grid-cols-[minmax(0,680px)_1fr] 
+               lg:gap-12 p-8 space-y-6">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="icon-wrap shrink-0"></span>
+            <h2 class="title text-2xl font-bold tracking-tight text-[var(--primary)]"></h2>
+          </div>
+          <div class="section-body prose max-w-none"></div>
+        </div>
+        <div class="section-chart-col flex items-center justify-center mt-4 lg:mt-0"></div>
+      </section>
+    </template>
+    <section id="verdict" class="hidden"></section>
+  </main>
+  <div id="ctaBar"
+    class="hidden lg:flex fixed bottom-6 right-6 items-center gap-4
+           bg-[var(--primary)] text-white px-6 py-3 rounded-full shadow-brand z-[55]">
+    <button class="font-semibold hover:bg-white/10 px-3 py-1 rounded focus:ring-2 ring-inset ring-white/60"
+            onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+  </div>
+  <div id="react-root"></div>
+  <script>
+function cite(txt, key) {
+  const srcs = window.courseData.sources;
+  let found = false;
+  // search nested keys
+  function findKey(obj, k) {
+    if(obj[k]) return obj[k];
+    for(const key in obj) {
+      if(typeof obj[key]==="object" && obj[key]!==null) {
+        const val = findKey(obj[key], k);
+        if(val) return val;
+      }
+    }
+    return undefined;
+  }
+  const val = findKey(srcs, key);
+  return val ? txt+'<sup class="source" title="'+String(val).replace(/"/g,'&quot;')+'">[s]</sup>' : txt;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const d = window.courseData;
+  // Apply custom brand colors
+  document.documentElement.style.setProperty('--light-bg',         d.brandColors.background     || '#FFFDF7');
+  document.documentElement.style.setProperty('--light-primary',    d.brandColors.primary       || '#C28E5C');
+  document.documentElement.style.setProperty('--light-text',       d.brandColors.text          || '#362C1A');
+  document.documentElement.style.setProperty('--light-text2',      d.brandColors.textSecondary || '#8A6D3B');
+  document.documentElement.style.setProperty('--light-accent',     d.brandColors.accent        || '#E5734B');
+  document.documentElement.style.setProperty('--light-border',     d.brandColors.border        || '#E8D8C3');
+
+  // Titles and opportunity
+  const pageTitle = `${d.meta.courseTitle} · ${d.meta.reportTitle}`;
+  document.title = pageTitle;
+  document.getElementById('pageTitle').textContent = pageTitle;
+  document.getElementById('courseTitle').textContent = d.meta.courseTitle;
+  document.getElementById('reportSubtitle').textContent = d.meta.reportTitle;
+  document.getElementById('opportunityScore').textContent = `Score ${d.opportunityScore}/100`;
+
+  // Table of contents
+  const tocData = [
+    ['worthIt','Should You Make It?','light-bulb'],
+    ['overview','Course Overview','book-open'],
+    ['trends','Market Trends','chart-bar'],
+    ['competitors','Competition','users'],
+    ['worries','Learner Concerns','exclamation-triangle'],
+    ['pricing','Ideal Pricing','currency-dollar'],
+    ['outlook','Revenue Outlook','chart-pie'],
+    ['verdict','Conclusion','check-circle']
+  ];
+  const tocLinks = document.getElementById('tocLinks');
+  tocData.forEach(([id,label,heroIcon]) => {
+    const a = document.createElement('a');
+    a.href = '#'+id;
+    a.className = 'block px-3 py-1 rounded hover:text-[var(--primary)] transition-colors';
+    a.innerHTML = label;
+    tocLinks.appendChild(a);
+  });
+  document.getElementById('tocToggle').onclick = () => {
+    tocDrawer.classList.toggle('hidden');
+    const expanded = !tocDrawer.classList.contains('hidden');
+    document.getElementById('tocToggle').setAttribute('aria-expanded', expanded);
+  };
+
+  // Section templates with citation mapping
+  const main = document.querySelector('main');
+  const template = document.getElementById('sectionTemplate');
+  const sectionsData = [
+    {
+      id:'worthIt', icon:'light-bulb', title:'1 · Should You Make It?',
+      html: `
+        <div class="flex flex-wrap gap-2 text-sm mb-6">
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">
+            ${cite('Demand Score <strong>'+d.demand.score+'/10</strong>','searchVolumes')}
+          </span>
+          <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+            Top <strong>${d.demand.percentile}%</strong>
+          </span>
+        </div>
+        <p class="italic mb-2"><strong>Question:</strong> "${d.demand.question}"</p>
+        <p><strong>Answer:</strong> ${d.demand.answer}</p>
+        <p><strong>Why:</strong> 
+          ${cite('Google searches for "charcuterie board" are at all-time highs','searchGrowth')}<br>
+          ${cite('Instagram posts 1.2M+','instagramPosts')}<br>
+          ${cite('Buyers pay $75–$150 for courses','priceBenchmarks')}
+        </p>
+      `,
+      chart:'scoreChart'
+    },
+    {
+      id:'overview', icon:'book-open', title:'2 · Course Overview',
+      html: `
+        <div class="flex flex-wrap gap-2 text-sm mb-4">
+          <span class="chip">${cite('Audience: <strong>'+d.testing.targetAudience+'</strong>','targetAudience')}</span>
+          <span class="chip">${cite('Format: <strong>'+d.testing.format+'</strong>','contentGap')}</span>
+        </div>
+        <p class="italic mb-2"><strong>Question:</strong> "${d.testing.question}"</p>
+        <p><strong>Answer:</strong> ${d.testing.answer}</p>
+        <p><strong>Why:</strong> 
+          ${cite('Current resources are piecemeal and confusing','contentGap')}
+        </p>
+        <ul class="list-disc list-inside grid sm:grid-cols-2 gap-x-6 mt-4 text-sm">
+          ${ d.testing.contentPillars.map(p=>`<li>${p}</li>`).join('') }
+        </ul>
+      `
+    },
+    {
+      id:'trends', icon:'chart-bar', title:'3 · Market Trends',
+      html: `
+        <div class="flex flex-wrap gap-2 text-sm mb-4">
+          <span class="chip bg-emerald-100 text-emerald-800">
+            ${cite('Google +'+d.trends.googleSearchChangePct+'%','googleSearchChangePct')}
+          </span>
+          <span class="chip bg-cyan-100 text-cyan-800">
+            ${cite('Social +'+d.trends.socialMediaGrowthPct+'%','#charcuterie')}
+          </span>
+          <span class="chip">${cite(d.trends.macroFactor,'macroFactor')}</span>
+        </div>
+        <p class="italic mb-2"><strong>Question:</strong> "${d.trends.question}"</p>
+        <p><strong>Answer:</strong> ${d.trends.answer}</p>
+        <p><strong>Why:</strong> 
+          ${cite('Google Trends, meetglimpse.com, and platform data show historic highs','googleSearchChangePct')}
+        </p>
+      `,
+      chart:'trendChart'
+    },
+    {
+      id:'competitors', icon:'users', title:'4 · Competition',
+      html: `
+        <p class="italic mb-2"><strong>Question:</strong> "${d.competitors.question}"</p>
+        <p><strong>Answer:</strong> ${d.competitors.answer}</p>
+        <p><strong>Why:</strong> ${cite(d.competitors.why,'charcuterieMadeEasy')}</p>
+        <div class="overflow-x-auto mt-4">
+          <table class="min-w-full text-sm whitespace-nowrap">
+            <thead class="table-header-sticky bg-[var(--background)] text-[var(--text-strong)]">
+              <tr>
+                <th class="py-2 px-4 font-semibold">Resource</th>
+                <th class="py-2 px-4 font-semibold">Strengths</th>
+                <th class="py-2 px-4 font-semibold">Weaknesses</th>
+                <th class="py-2 px-4 font-semibold text-right">Price</th>
+              </tr>
+            </thead>
+            <tbody id="competitorTable" class="divide-y divide-[var(--border)]"></tbody>
+          </table>
+        </div>
+      `
+    },
+    {
+      id:'worries', icon:'exclamation-triangle', title:'5 · Learner Concerns',
+      html: `
+        <p class="italic mb-2"><strong>Question:</strong> "${d.worries.question}"</p>
+        <p><strong>Answer:</strong> ${d.worries.answer}</p>
+        <p><strong>Why:</strong> 
+          ${cite('Workshops: 91% lack skills, 81% unsure on safety','workshopStats')}
+          <br>${cite('Intimidation and confusion common, says culinary media','intimidationMedia')}
+        </p>
+        <ul class="list-disc list-inside grid sm:grid-cols-2 gap-x-6 mt-4 text-sm">
+          ${ d.worries.topConcerns.map(c=>`<li>${c}</li>`).join('') }
+        </ul>
+      `
+    },
+    {
+      id:'pricing', icon:'currency-dollar', title:'6 · Ideal Pricing',
+      html: `
+        <p class="italic mb-2"><strong>Question:</strong> "${d.pricing.question}"</p>
+        <p><strong>Answer:</strong> ${d.pricing.answer}</p>
+        <p><strong>Why:</strong> 
+          ${cite('Competing courses are $75–$150+','coursePrices')}
+        </p>
+      `,
+      chart:'priceChart'
+    },
+    {
+      id:'outlook', icon:'chart-pie', title:'7 · Revenue Outlook',
+      html: `
+        <div class="flex flex-wrap gap-2 text-sm mb-4">
+          <span class="chip bg-emerald-100 text-emerald-800">
+            Likely $${d.revenueOutlook.likelyRevenueUSD}
+          </span>
+          <span class="chip bg-blue-100 text-blue-800">
+            vs $${d.revenueOutlook.industryAverageUSD} avg
+            <sup class="source" title="${d.sources.revenueOutlook.industryAverage}">[s]</sup>
+          </span>
+          <span class="chip bg-purple-100 text-purple-800">
+            Launch in ${d.revenueOutlook.launchTimelineDays} days
+          </span>
+        </div>
+        <p class="italic mb-2"><strong>Question:</strong> "${d.revenueOutlook.question}"</p>
+        <p><strong>Answer:</strong> ${d.revenueOutlook.answer}</p>
+        <p><strong>Why:</strong> ${d.revenueOutlook.why}</p>
+        <div class="overflow-x-auto mt-4">
+          <table class="min-w-full text-sm whitespace-nowrap">
+            <thead class="table-header-sticky bg-[var(--background)] text-[var(--text-strong)]">
+              <tr>
+                <th class="py-2 px-4 font-semibold">Scenario</th>
+                <th class="py-2 px-4 font-semibold">Students</th>
+                <th class="py-2 px-4 font-semibold">Price</th>
+                <th class="py-2 px-4 font-semibold text-right">12-Mo Revenue</th>
+              </tr>
+            </thead>
+            <tbody id="scenarioTable" class="divide-y divide-[var(--border)]"></tbody>
+          </table>
+        </div>
+      `,
+      chart:'outlookChart'
+    },
+    {
+      id:'verdict', icon:'check-circle', title:'8 · Conclusion',
+      html: `
+        <p class="italic mb-2"><strong>Question:</strong> "${d.buildDecision.question}"</p>
+        <p><strong>Answer:</strong> ${d.buildDecision.answer}</p>
+        <p><strong>Why:</strong> ${d.buildDecision.why}</p>
+      `
+    }
+  ];
+  sectionsData.forEach(sec => {
+    const content = template.content.cloneNode(true);
+    const sectionEl = content.querySelector('section');
+    sectionEl.id = sec.id;
+    content.querySelector('.icon-wrap').innerHTML = `<hero-icon-outline name="${sec.icon}" class="w-6 h-6 text-[var(--primary)]"></hero-icon-outline>`;
+    content.querySelector('.title').textContent = sec.title;
+    content.querySelector('.section-body').innerHTML = sec.html;
+    if(sec.chart) content.querySelector('.section-chart-col').innerHTML = `<canvas id="${sec.chart}" class="max-w-full h-64" role="img"></canvas>`;
+    else content.querySelector('.section-chart-col').remove();
+    main.appendChild(content);
+  });
+
+  // KPI summary
+  document.getElementById('kpiSummary').innerHTML = `
+    <div>
+      <div class="font-semibold">Demand</div>
+      <div>${d.demand.score}/10 <sup class="source" title="${d.sources.demand.searchVolumes}">[s]</sup></div>
+    </div>
+    <div>
+      <div class="font-semibold">Target Price</div>
+      <div>$${d.pricing.targetPriceUSD}<sup class="source" title="${d.sources.pricing.coursePrices}">[s]</sup></div>
+    </div>
+    <div>
+      <div class="font-semibold">Likely 12-mo Rev</div>
+      <div>$${d.revenueOutlook.likelyRevenueUSD}</div>
+    </div>
+    <div>
+      <div class="font-semibold">Launch Time</div>
+      <div>${d.revenueOutlook.launchTimelineDays} days</div>
+    </div>
+  `;
+  // Competitors
+  const compTbody = document.getElementById('competitorTable');
+  d.competitors.list.forEach((row,i) => {
+    const tr = document.createElement('tr');
+    const sourceKey = i===0 ? 'charcuterieMadeEasy' : i===1 ? 'charcuterieAtHome' : 'bougieBoardsLA';
+    tr.className = 'hover:bg-[var(--primary)]/5';
+    tr.innerHTML = `
+      <td class="py-2 px-4">${row.name} <sup class="source" title="${d.sources.competitors[sourceKey]}">[s]</sup></td>
+      <td class="py-2 px-4">${row.strengths}</td>
+      <td class="py-2 px-4">${row.weaknesses}</td>
+      <td class="py-2 px-4 text-right">$${row.priceUSD}</td>
+    `;
+    compTbody.appendChild(tr);
+  });
+  // Revenue scenarios
+  const scenarioTbody = document.getElementById('scenarioTable');
+  d.revenueOutlook.scenarios.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.className = 'hover:bg-[var(--primary)]/5';
+    tr.innerHTML = `
+      <td class="py-2 px-4">${s.name}</td>
+      <td class="py-2 px-4">${s.students.toLocaleString()}</td>
+      <td class="py-2 px-4">$${s.priceUSD}</td>
+      <td class="py-2 px-4 text-right">$${s.revenueUSD.toLocaleString()}</td>
+    `;
+    scenarioTbody.appendChild(tr);
+  });
+  // Reveal on scroll
+  const revealObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  },{ threshold:.1 });
+  document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+});
+  </script>
+</body>
+</html>
